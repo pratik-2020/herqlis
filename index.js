@@ -11,6 +11,8 @@ app.use(cors({
         'DELETE'
     ]
 }));
+app.use(express.json());
+app.use(express.text());
 const mongoose = require('mongoose');
 const getService = require('./routes/services/getService');
 const getServices = require('./routes/services/getServices');
@@ -18,7 +20,8 @@ const deleteService = require('./routes/services/deleteService');
 const getServiceMen = require('./routes/services/getServicemen');
 const getUserServices = require('./routes/services/getUserServices');
 const addOtp = require('./routes/otp/addOtp');
-const db = "";
+const login = require('./routes/users/login');
+const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true

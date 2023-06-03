@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
   "author": "Pratik Singh",
   "license": "ISC",
@@ -14,5 +15,8 @@
     "express-fileupload": "^1.4.0",
     "mongoose": "^7.2.2",
     "otp-generator": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }

@@ -1,8 +1,8 @@
 const userModel = require('../../models/user');
 
 const login = (req, res) => {
-    const phn = JSON.parse(req.body).phoneNumber;
-    const password = JSON.parse(req.body).password;
+    const phn = req.body.mobNumber;
+    const password = req.body.password;
 
     userModel.find({
         mobileNum: phn,
