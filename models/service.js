@@ -24,11 +24,11 @@ const serviceSchema = mongoose.Schema({
     },
     acceptenceDate: {
         type: String,
-        required: true
+        // required: true
     },
     completionDate: {
         type: String,
-        required: true
+        // required: true
     },
     issueDetail: {
         type: String,

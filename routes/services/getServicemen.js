@@ -2,7 +2,7 @@ const userModel = require('../../models/user');
 
 const getServiceMen = (req, res) => {
     userModel.find({
-        employeeType: 'service man'
+        employeeType: 'Service man'
     }).then((resp1) => {
         res.send(resp1);
     }).catch((er1) => {
