@@ -8,7 +8,7 @@ const signup = (req, res) => {
     const password = req.body.password;
     const age = req.body.age;
     const mobNumber = req.body.mobNumber;
-    const location = req.body.location;
+    // const location = req.body.location;
     let userm = new userModel();
     userm.name = ''+firstName + lastName;
     // userm.lastName = lastName
@@ -17,7 +17,7 @@ const signup = (req, res) => {
     userm.password = password
     userm.age = age
     userm.mobileNum = mobNumber,
-    userm.location = location;
+    // userm.location = location;
     userm.employeeType = 'Service man'
     userm.save().then((resp1) => {
         res.send({
