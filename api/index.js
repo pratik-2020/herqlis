@@ -23,6 +23,7 @@ const addOtp = require('../routes/otp/addOtp');
 const login = require('../routes/users/login');
 const addService = require('../routes/services/addService');
 const updateService = require('../routes/services/updateService');
+const serviceAllocation = require('../routes/services/serviceAllocation');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db, {
     useNewUrlParser: true,
@@ -65,7 +66,9 @@ app.put('/service/:serviceId', (req, res) => {
 app.get('/services/:userId', (req, res) => {
     getUserServices(req, res);
 });
-
+app.put('/allocation/:serviceId', (req, res) => {
+    serviceAllocation(req, res);
+})
 //otp
 app.post('/opt', (req, res) => {
     addOtp(req, res);
