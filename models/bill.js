@@ -16,6 +16,13 @@ const billSchema = mongoose.Schema({
     reimbursementStatus: {
         type: String,
         required: true
+    },
+    reimbursedAmount : {
+        type: String
+    },
+    userId: {
+        type: String,
+        required: true
     }
 });
 

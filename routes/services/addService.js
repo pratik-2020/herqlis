@@ -22,7 +22,7 @@ const addService = (req, res) => {
     servicem.serviceCost = req.body.serviceCost;
     servicem.status = "To be allocated";
     servicem.serviceFeedback = "";
-    servicem.userId = [];
+    servicem.userId = req.body.userId;
     servicem.save().then((resp1) => {
         res.send({
             'message': 'Service added',

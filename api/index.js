@@ -11,6 +11,10 @@ app.use(cors({
         'DELETE'
     ]
 }));
+const fileUpload = require('express-fileupload');
+app.use(fileUpload({
+    useTempFiles: true
+}));
 app.use(express.json());
 app.use(express.text());
 const mongoose = require('mongoose');
@@ -24,6 +28,11 @@ const login = require('../routes/users/login');
 const addService = require('../routes/services/addService');
 const updateService = require('../routes/services/updateService');
 const serviceAllocation = require('../routes/services/serviceAllocation');
+const addBill = require('../routes/bills/addBill');
+const getBills = require('../routes/bills/getBills');
+const usersBills = require('../routes/bills/usersBills');
+const getBill = require('../routes/bills/getBill');
+const reimbursement = require('../routes/bills/reimbursement');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db, {
     useNewUrlParser: true,
@@ -73,7 +82,22 @@ app.put('/allocation/:serviceId', (req, res) => {
 app.post('/opt', (req, res) => {
     addOtp(req, res);
 });
-
+//bill
+app.post('/bill', (req, res) => {
+    addBill(req, res);
+});
+app.get('/bills', (req, res) => {
+    getBills(req, res);
+});
+app.get('/billusr/:userId', (req, res) => {
+    usersBills(req, res);
+});
+app.get('/bill/:billId', (req, res) => {
+    getBill(req, res);
+});
+app.put('/reimbursement/:billId', (req, res) => {
+    reimbursement(req, res);
+})
 app.listen(3001, () => {
     console.log('Server started at 3001');
 })
