@@ -15,7 +15,8 @@ const login = (req, res) => {
         }
         else{
             res.send({
-                'message': 'User can proceed'
+                'message': 'User can proceed',
+                'data' : resp1
             })
         }
     }).catch((er1) => {

@@ -18,6 +18,9 @@ const signup = (req, res) => {
     userm.age = age
     userm.mobileNum = mobNumber,
     // userm.location = location;
+    userm.speciality = req.body.speciality;
+    userm.gender = req.body.gender;
+    userm.address = req.body.address;
     userm.employeeType = 'Service man'
     userm.save().then((resp1) => {
         res.send({

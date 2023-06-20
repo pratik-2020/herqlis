@@ -16,6 +16,7 @@ app.use(fileUpload({
     useTempFiles: true
 }));
 app.use(express.json());
+const addFeedback = require('../routes/services/addFeedBack');
 app.use(express.text());
 const mongoose = require('mongoose');
 const getService = require('../routes/services/getService');
@@ -33,6 +34,9 @@ const getBills = require('../routes/bills/getBills');
 const usersBills = require('../routes/bills/usersBills');
 const getBill = require('../routes/bills/getBill');
 const reimbursement = require('../routes/bills/reimbursement');
+const addStartDate = require('../routes/services/addStartdate');
+const addCompletetion = require('../routes/services/addCompletion');
+const updateStatus = require('../routes/services/updateStatus');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db, {
     useNewUrlParser: true,
@@ -77,6 +81,18 @@ app.get('/services/:userId', (req, res) => {
 });
 app.put('/allocation/:serviceId', (req, res) => {
     serviceAllocation(req, res);
+});
+app.put('/startdate/:serviceId', (req, res) => {
+    addStartDate(req, res);
+});
+app.put('/completetiondate/:serviceId', (req, res) => {
+    addCompletetion(req,res);
+});
+app.put('/feedback/:serviceId', (req, res) => {
+    addFeedback(req, res);
+})
+app.put('/status/:serviceId', (Req, res) => {
+    updateStatus(req, res);
 })
 //otp
 app.post('/opt', (req, res) => {

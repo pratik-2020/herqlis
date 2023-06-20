@@ -23,6 +23,10 @@ const billSchema = mongoose.Schema({
     userId: {
         type: String,
         required: true
+    },
+    serviceId: {
+        type: String,
+        required: true
     }
 });
 

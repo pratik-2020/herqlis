@@ -34,6 +34,15 @@ const userSchema = mongoose.Schema({
     billsToReimburse: {
         type: Array
     },
+    gender: {
+        type: String
+    },
+    speciality: {
+        type: Array
+    },
+    address: {
+        type: String
+    },
     location: {
         type: {
             latitude: {
