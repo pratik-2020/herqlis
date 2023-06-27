@@ -19,8 +19,7 @@ const serviceSchema = mongoose.Schema({
         required: true
     },
     requestDate: {
-        type: String,
-        required: true
+        type: String
     },
     acceptenceDate: {
         type: String,
@@ -69,7 +68,6 @@ const serviceSchema = mongoose.Schema({
     },
     startDate: {
         type: String,
-        required: true
     },
     status: {
         type: String,
