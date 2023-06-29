@@ -8,10 +8,13 @@ const addFeedback = (req, res) => {
     }, {
         serviceFeedback: serviceFeedback
     }).then((resp1) => {
-        res.send(resp1);
+        res.send({
+            'message': 'Feedback added',
+            'data': resp1
+        });
     }).catch((Er1) => {
         res.send(Er1);
     })
 }
 
-module.export = addFeedback;
+module.exports = addFeedback;

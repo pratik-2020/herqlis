@@ -16,20 +16,20 @@
 //         }
 //         else{
 //             let billm = new billModel();
-//             billm.imgUrl = dt.url;
-//             billm.amount = req.body.amount;
-//             billm.description = req.body.description;
-//             billm.reimbursementStatus = req.body.reimbursementStatus;
-//             billm.serviceId = req.body.serviceId;
-//             billm.userId = req.body.userId;
-//             billm.save().then((resp1) => {
-//                 res.send({
-//                     'message': 'Bill added',
-//                     'data': resp1
-//                 });
-//             }).catch((er) => {
-//                 res.send(er);
-//             });
+            // billm.imgUrl = dt.url;
+            // billm.amount = req.body.amount;
+            // billm.description = req.body.description;
+            // billm.reimbursementStatus = req.body.reimbursementStatus;
+            // billm.serviceId = req.body.serviceId;
+            // billm.userId = req.body.userId;
+            // billm.save().then((resp1) => {
+            //     res.send({
+            //         'message': 'Bill added',
+            //         'data': resp1
+            //     });
+            // }).catch((er) => {
+            //     res.send(er);
+            // });
 //         }
 //     });
 //     img.data.pipe(str);
