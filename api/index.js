@@ -11,10 +11,10 @@ app.use(cors({
         'DELETE'
     ]
 }));
-const fileUpload = require('express-fileupload');
-app.use(fileUpload({
-    useTempFiles: true
-}));
+// const fileUpload = require('express-fileupload');
+// app.use(fileUpload({
+//     useTempFiles: true
+// }));
 app.use(express.json());
 const addFeedback = require('../routes/services/addFeedBack');
 app.use(express.text());
@@ -38,6 +38,17 @@ const addStartDate = require('../routes/services/addStartdate');
 const addCompletetion = require('../routes/services/addCompletion');
 const updateStatus = require('../routes/services/updateStatus');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
+const multer = require('multer');
+const billModel = require('../models/bill');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: 'ddcituqpc', 
+    api_key: '575793552761264', 
+    api_secret: 'VrE5wG2lYuobc0S5atbZPe3PhO4',
+    secure: true
+})
+const upload = multer({storage: multer.memoryStorage()})
 mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -99,8 +110,47 @@ app.post('/opt', (req, res) => {
     addOtp(req, res);
 });
 //bill
-app.post('/bill', (req, res) => {
-    addBill(req, res);
+app.post('/bill', upload.single('file'), async (req, res) => {
+    try {
+        // const bb = new busboy({ headers: req.headers });
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const file = req.file;
+      console.log("file 162 :- "+file);
+      // Upload file data directly to Cloudinary
+      const base64Data = file.buffer.toString('base64');
+    //   console.log("file 165 :- "+base64Data);
+      await cloudinary.uploader.upload(
+        `data:${file.mimetype};base64,${base64Data}`
+      ).then((resp1) => {
+        console.log("resp1 167 :- "+resp1);
+        let billm = new billModel();
+        console.log("resp1 :127 :- "+resp1);
+        billm.imgUrl = resp1.secure_url;
+        billm.amount = req.body.amount;
+        billm.description = req.body.description;
+        billm.reimbursementStatus = req.body.reimbursementStatus;
+        billm.serviceId = req.body.serviceId;
+        billm.userId = req.body.userId;
+        billm.save().then((resp1) => {
+            res.send({
+                'message': 'Bill added',
+                'data': resp1
+            });
+        }).catch((er) => {
+            res.send(er);
+        });
+      }).catch((er1) => {
+        res.send(er1);
+      })
+
+    //   res.json({ url: cloudinaryUpload.secure_url });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Something went wrong' });
+    }
 });
 app.get('/bills', (req, res) => {
     getBills(req, res);
