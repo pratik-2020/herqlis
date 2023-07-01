@@ -40,6 +40,7 @@ const updateStatus = require('../routes/services/updateStatus');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 const multer = require('multer');
 const billModel = require('../models/bill');
+const Cloudupld = require('../test');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
@@ -101,8 +102,8 @@ app.put('/completetiondate/:serviceId', (req, res) => {
 });
 app.put('/feedback/:serviceId', (req, res) => {
     addFeedback(req, res);
-})
-app.put('/status/:serviceId', (Req, res) => {
+});
+app.put('/status/:serviceId', (req, res) => {
     updateStatus(req, res);
 })
 //otp
@@ -163,6 +164,14 @@ app.get('/bill/:billId', (req, res) => {
 });
 app.put('/reimbursement/:billId', (req, res) => {
     reimbursement(req, res);
+})
+app.post('/test', upload.single('file'), (req, res) => {
+    let cld = new Cloudupld("szuxglwu", "dl3ncyhm7");
+    console.log("welcome " + Object.keys(req.body));
+    let file = req.file;
+    const base64Data = file.buffer.toString('base64');
+    console.log("file :- 172 :- "+Object.keys(file));
+    res.send(cld.upld(file.buffer));
 })
 app.listen(3001, () => {
     console.log('Server started at 3001');
