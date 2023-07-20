@@ -64,6 +64,7 @@ const addBill = (req, res) => {
           billm.reimbursementStatus = req.body.reimbursementStatus;
           billm.serviceId = req.body.serviceId;
           billm.userId = req.body.userId;
+          billm.dateData = new Date();
           billm
             .save()
             .then((resp1) => {

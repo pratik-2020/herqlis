@@ -23,6 +23,7 @@ const addService = (req, res) => {
     servicem.status = "To be allocated";
     servicem.serviceFeedback = "";
     servicem.userId = req.body.userId;
+    servicem.warranty = req.body.warranty;
     servicem.save().then((resp1) => {
         res.send({
             'message': 'Service added',

@@ -29,6 +29,9 @@ const serviceSchema = mongoose.Schema({
         type: String,
         // required: true
     },
+    warranty: {
+        type: Boolean
+    },
     issueDetail: {
         type: String,
         required: true

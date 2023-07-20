@@ -27,6 +27,9 @@ const billSchema = mongoose.Schema({
     serviceId: {
         type: String,
         required: true
+    },
+    dateData:{
+        type: Date
     }
 });
 

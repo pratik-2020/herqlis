@@ -40,6 +40,9 @@ const updateStatus = require('../routes/services/updateStatus');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 const multer = require('multer');
 const billModel = require('../models/bill');
+const addDailyAllowence = require('../routes/dailyallowence/addDailyAllowence');
+const deleteBill = require('../routes/bills/deleteBill');
+const deleteUser = require('../routes/users/deleteUser');
 // const Cloudupld = require('../test');
 const cloudinary = require('cloudinary').v2;
 
@@ -82,6 +85,9 @@ app.delete('/service/:serviceId', (req, res) => {
 app.get('/servicemen', (req, res) => {//
     getServiceMen(req, res);
 });
+app.delete('/serviceman/:id', (req,res) => {
+    deleteUser(req, res)
+})
 app.post('/service', (req, res) => {//
     addService(req, res);
 });
@@ -105,7 +111,10 @@ app.put('/feedback/:serviceId', (req, res) => {
 });
 app.put('/status/:serviceId', (req, res) => {
     updateStatus(req, res);
-})
+});
+app.post('/da', (req,res) => {
+    addDailyAllowence(req, res);
+});
 //otp
 app.post('/opt', (req, res) => {
     addOtp(req, res);
@@ -158,6 +167,9 @@ app.get('/bills', (req, res) => {
 });
 app.get('/billusr/:userId', (req, res) => {
     usersBills(req, res);
+});
+app.delete('/bill/:id', (req,res) => {
+    deleteBill(req,res);
 });
 app.get('/bill/:billId', (req, res) => {
     getBill(req, res);
