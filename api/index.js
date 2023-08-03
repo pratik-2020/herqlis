@@ -2,6 +2,10 @@ const express = require('express');
 const signup = require('../routes/users/signup');
 const app = express();
 const cors = require('cors');
+const bodyParser = require("body-parser");
+
+
+const axios = require("axios");
 app.use(cors({
     origin: '*',
     methods: [
@@ -11,6 +15,10 @@ app.use(cors({
         'DELETE'
     ]
 }));
+
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
 // const fileUpload = require('express-fileupload');
 // app.use(fileUpload({
 //     useTempFiles: true
@@ -40,9 +48,11 @@ const updateStatus = require('../routes/services/updateStatus');
 const db = "mongodb+srv://pratik:pratik@cluster0.dowzjwv.mongodb.net/?retryWrites=true&w=majority";
 const multer = require('multer');
 const billModel = require('../models/bill');
-const addDailyAllowence = require('../routes/dailyallowence/addDailyAllowence');
+const addDailyAllowence = require('../routes/dailyallowence/calculateTimeDistance');
 const deleteBill = require('../routes/bills/deleteBill');
 const deleteUser = require('../routes/users/deleteUser');
+const sendOTP = require('../routes/otp/sendOTP');
+const verifyOTP = require('../routes/otp/verifyOTP');
 // const Cloudupld = require('../test');
 const cloudinary = require('cloudinary').v2;
 
@@ -113,7 +123,40 @@ app.put('/status/:serviceId', (req, res) => {
     updateStatus(req, res);
 });
 app.post('/da', (req,res) => {
-    addDailyAllowence(req, res);
+    const lat1 = req.body.lat1;
+    const long1 = req.body.long1;
+    const lat2 = req.body.lat2;
+    const long2 = req.body.long2;
+    const startTime = req.body.startTime;
+    const endTime = req.body.endTime;
+    const lat3 = req.body.lat3;
+    const long3 = req.body.long3;
+    var url = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?" + "travelMode=driving" + "&" + "destinations=" + lat2 + "," + long2 + "&" + "origins=" + lat1 + "," + long1 + "&" + "&" + "key=AvmrNFJ3BmYB3ZpIamL7LvUDasyAt9L2HL-qu44vSkTEjQex7_VcDWIUEeERKrkk"
+    axios.get(url).then((res1) =>{
+        console.log(res1.data.resourceSets[0].resources[0].results[0].travelDistance);
+        var distance = 0;
+        distance = res1.data.resourceSets[0].resources[0].results[0].travelDistance;
+        var url1 = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?" + "travelMode=driving" + "&" + "destinations=" + lat3 + "," + long3 + "&" + "origins=" + lat2 + "," + long2 + "&" + "&" + "key=AvmrNFJ3BmYB3ZpIamL7LvUDasyAt9L2HL-qu44vSkTEjQex7_VcDWIUEeERKrkk";
+        axios.get(url1).then((res2) => {
+            distance += res2.data.resourceSets[0].resources[0].results[0].travelDistance;
+            const timeDifference = endTime - startTime;
+            const hoursDifference = timeDifference  / (1000 * 60 * 60);
+            const multipleOfTwelve = Math.floor(hoursDifference / 12);
+            const costForTime = multipleOfTwelve * 150;
+            const multipleOfHundred = Math.floor(distance / 100);
+            const costForDistance = multipleOfHundred * 150;
+            
+            res.send({cost: Math.max(costForTime, costForDistance)});
+        }).catch((err) => {
+            console.log(err);
+            res.send(err);
+        })
+    }).catch((err) => {
+        console.log(err);
+        res.send(err);
+    });
+    // console.log(req)
+    // addDailyAllowence(req, res);
 });
 //otp
 app.post('/opt', (req, res) => {
@@ -176,7 +219,13 @@ app.get('/bill/:billId', (req, res) => {
 });
 app.put('/reimbursement/:billId', (req, res) => {
     reimbursement(req, res);
-})
+});
+app.post('/otp/sendOTP', (req, res) => {
+    sendOTP(req, res);
+});
+app.get('otp/verifyOTP', (req, res) => {
+    verifyOTP(req, res);
+});
 // app.post('/test', upload.single('file'), (req, res) => {
 //     let cld = new Cloudupld("szuxglwu", "dl3ncyhm7");
 //     console.log("welcome " + Object.keys(req.body));
