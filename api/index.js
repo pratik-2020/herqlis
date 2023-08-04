@@ -51,8 +51,8 @@ const billModel = require('../models/bill');
 const addDailyAllowence = require('../routes/dailyallowence/calculateTimeDistance');
 const deleteBill = require('../routes/bills/deleteBill');
 const deleteUser = require('../routes/users/deleteUser');
-const sendOTP = require('../routes/otp/sendOTP');
-const verifyOTP = require('../routes/otp/verifyOTP');
+// const sendOTP = require('../routes/otp/sendOTP');
+// const verifyOTP = require('../routes/otp/verifyOTP');
 // const Cloudupld = require('../test');
 const cloudinary = require('cloudinary').v2;
 
