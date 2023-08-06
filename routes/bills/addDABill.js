@@ -19,3 +19,4 @@ const addBill = (req, res) => {
         res.send(er);
     });
 }
+module.exports = addBill;

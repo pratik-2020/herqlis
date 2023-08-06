@@ -48,7 +48,7 @@ cloudinary.config({
 
 const addBill = (req, res) => {
   const img = req.files.img;
-  
+
   img.mv('/tmp', (error) => {
     if (error) {
       res.send(error);
@@ -64,6 +64,7 @@ const addBill = (req, res) => {
           billm.reimbursementStatus = req.body.reimbursementStatus;
           billm.serviceId = req.body.serviceId;
           billm.userId = req.body.userId;
+          billm.reimbursedAmount = req.body.reimbursedAmount;
           billm.dateData = new Date();
           billm
             .save()
