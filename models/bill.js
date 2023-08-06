@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const billSchema = mongoose.Schema({
     imgUrl: {
         type: String,
-        required: true
+        // required: true
     },
     amount: {
         type: Number,
@@ -15,7 +15,7 @@ const billSchema = mongoose.Schema({
     },
     reimbursementStatus: {
         type: String,
-        // required: true
+        required: true
     },
     reimbursedAmount : {
         type: String

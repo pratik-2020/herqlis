@@ -48,7 +48,7 @@ cloudinary.config({
 
 const addBill = (req, res) => {
   const img = req.files.img;
-
+  
   img.mv('/tmp', (error) => {
     if (error) {
       res.send(error);

@@ -51,6 +51,7 @@ const billModel = require('../models/bill');
 const addDailyAllowence = require('../routes/dailyallowence/calculateTimeDistance');
 const deleteBill = require('../routes/bills/deleteBill');
 const deleteUser = require('../routes/users/deleteUser');
+const addDABill = require('../routes/bills/addDABill');
 // const sendOTP = require('../routes/otp/sendOTP');
 // const verifyOTP = require('../routes/otp/verifyOTP');
 // const Cloudupld = require('../test');
@@ -161,6 +162,9 @@ app.post('/da', (req,res) => {
 //otp
 app.post('/opt', (req, res) => {
     addOtp(req, res);
+});
+app.post("/DAbill", (req, res) => {
+    addDABill(req, res);
 });
 //bill
 app.post('/bill', upload.single('file'), async (req, res) => {
