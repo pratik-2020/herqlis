@@ -36,3 +36,4 @@ const billSchema = mongoose.Schema({
 const billModel = mongoose.model('Bill', billSchema);
 
 module.exports = billModel;
+
