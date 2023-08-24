@@ -25,6 +25,7 @@ const addService = (req, res) => {
     servicem.userId = req.body.userId;
     servicem.warranty = req.body.warranty;
     servicem.advance = req.body.advance;
+    servicem.isPublic = req.body.isPublic;
     servicem.save().then((resp1) => {
         res.send({
             'message': 'Service added',

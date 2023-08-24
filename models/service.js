@@ -85,6 +85,9 @@ const serviceSchema = mongoose.Schema({
     advance: {
         type: Number,
     },
+    isPublic: {
+        type: Boolean,
+    },
 });
 
 const serviceModel = mongoose.model('Service', serviceSchema);

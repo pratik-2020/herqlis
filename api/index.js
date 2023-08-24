@@ -52,6 +52,8 @@ const addDailyAllowence = require('../routes/dailyallowence/calculateTimeDistanc
 const deleteBill = require('../routes/bills/deleteBill');
 const deleteUser = require('../routes/users/deleteUser');
 const addDABill = require('../routes/bills/addDABill');
+const serviceModel = require('../../models/service');
+
 // const sendOTP = require('../routes/otp/sendOTP');
 // const verifyOTP = require('../routes/otp/verifyOTP');
 // const Cloudupld = require('../test');
@@ -132,7 +134,18 @@ app.post('/da', (req,res) => {
     const endTime = req.body.endTime;
     const lat3 = req.body.lat3;
     const long3 = req.body.long3;
-    const isPublic = req.body.isPublic;
+
+    const serviceId = req.body.serviceId;
+    const isPublic = false;
+
+    serviceModel.findOne({
+        _id: serviceId
+    }).then((resp1) => {
+        isPublic = resp1.isPublic;
+    }).catch((er1) => {
+        res.send(er1);
+    });
+
     var url = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?" + "travelMode=driving" + "&" + "destinations=" + lat2 + "," + long2 + "&" + "origins=" + lat1 + "," + long1 + "&" + "&" + "key=AvmrNFJ3BmYB3ZpIamL7LvUDasyAt9L2HL-qu44vSkTEjQex7_VcDWIUEeERKrkk"
     axios.get(url).then((res1) =>{
         console.log(res1.data.resourceSets[0].resources[0].results[0].travelDistance);
