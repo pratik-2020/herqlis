@@ -132,6 +132,7 @@ app.post('/da', (req,res) => {
     const endTime = req.body.endTime;
     const lat3 = req.body.lat3;
     const long3 = req.body.long3;
+    const isPublic = req.body.isPublic;
     var url = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?" + "travelMode=driving" + "&" + "destinations=" + lat2 + "," + long2 + "&" + "origins=" + lat1 + "," + long1 + "&" + "&" + "key=AvmrNFJ3BmYB3ZpIamL7LvUDasyAt9L2HL-qu44vSkTEjQex7_VcDWIUEeERKrkk"
     axios.get(url).then((res1) =>{
         console.log(res1.data.resourceSets[0].resources[0].results[0].travelDistance);
@@ -146,7 +147,10 @@ app.post('/da', (req,res) => {
             const costForTime = multipleOfTwelve * 150;
             const multipleOfHundred = Math.floor(distance / 100);
             const costForDistance = multipleOfHundred * 150;
-            
+
+            if(isPublic){
+                res.send({cost: distance * 2.5});
+            }
             res.send({cost: Math.max(costForTime, costForDistance)});
         }).catch((err) => {
             console.log(err);

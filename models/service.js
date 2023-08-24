@@ -81,7 +81,10 @@ const serviceSchema = mongoose.Schema({
     },
     userId: {
         type: Array
-    }
+    },
+    advance: {
+        type: Number,
+    },
 });
 
 const serviceModel = mongoose.model('Service', serviceSchema);
