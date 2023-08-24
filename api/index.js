@@ -125,6 +125,24 @@ app.put('/feedback/:serviceId', (req, res) => {
 app.put('/status/:serviceId', (req, res) => {
     updateStatus(req, res);
 });
+app.put('/advance/:serviceId', (req, res) => {
+    const serviceId = req.params.serviceId;
+    const advance = req.body.advance;
+    serviceModel.updateOne({
+        _id: serviceId
+    }, {
+        advance: advance
+    }).then((resp1) => {
+        res.send({
+            'message': 'advance updated',
+            'data': resp1
+        })
+    }).catch((er1) => {
+        res.send(er1);
+    })
+
+module.exports = addCompletetion;
+})
 app.post('/da', (req,res) => {
     const lat1 = req.body.lat1;
     const long1 = req.body.long1;
