@@ -52,7 +52,7 @@ const addDailyAllowence = require('../routes/dailyallowence/calculateTimeDistanc
 const deleteBill = require('../routes/bills/deleteBill');
 const deleteUser = require('../routes/users/deleteUser');
 const addDABill = require('../routes/bills/addDABill');
-const serviceModel = require('../../models/service');
+const serviceModel = require('../models/service');
 
 // const sendOTP = require('../routes/otp/sendOTP');
 // const verifyOTP = require('../routes/otp/verifyOTP');
