@@ -154,14 +154,16 @@ app.post('/da', (req,res) => {
     const long3 = req.body.long3;
 
     const serviceId = req.body.serviceId;
-    const isPublic = false;
-
+    var isPublic = true;
+    console.log(serviceId);
     serviceModel.findOne({
         _id: serviceId
     }).then((resp1) => {
         isPublic = resp1.isPublic;
     }).catch((er1) => {
-        res.send(er1);
+        // console.log(er1);
+        // res.send("er1");
+        return;
     });
 
     var url = "https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?" + "travelMode=driving" + "&" + "destinations=" + lat2 + "," + long2 + "&" + "origins=" + lat1 + "," + long1 + "&" + "&" + "key=AvmrNFJ3BmYB3ZpIamL7LvUDasyAt9L2HL-qu44vSkTEjQex7_VcDWIUEeERKrkk"
@@ -185,7 +187,8 @@ app.post('/da', (req,res) => {
             res.send({cost: Math.max(costForTime, costForDistance)});
         }).catch((err) => {
             console.log(err);
-            res.send(err);
+            // res.send(err);
+            return;
         })
     }).catch((err) => {
         console.log(err);
