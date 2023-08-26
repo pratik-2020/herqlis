@@ -172,10 +172,10 @@ app.post('/da', (req,res) => {
             const costForDistance = multipleOfHundred * 150;
 
             if(isPublic){
-                res.send({cost: distance * 2.5});
+                res.send({petrolCost: distance * 2.5, daCost: Math.max(costForTime, costForDistance)});
                 return;
             }
-            res.send({cost: Math.max(costForTime, costForDistance)});
+            res.send({daCost: Math.max(costForTime, costForDistance)});
         }).catch((err) => {
             console.log(err);
             // res.send(err);
