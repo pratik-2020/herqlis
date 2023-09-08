@@ -19,10 +19,6 @@ app.use(cors({
 app.use(bodyParser.urlencoded({
     extended: true
   }));
-// const fileUpload = require('express-fileupload');
-// app.use(fileUpload({
-//     useTempFiles: true
-// }));
 app.use(express.json());
 app.use(express.text());
 const mongoose = require('mongoose');
@@ -53,7 +49,10 @@ const deleteBill = require('../routes/bills/deleteBill');
 const deleteUser = require('../routes/users/deleteUser');
 const addDABill = require('../routes/bills/addDABill');
 const serviceModel = require('../models/service');
-
+const addProspect = require('../routes/prospects/addProspect');
+const modifyProspect = require('../routes/prospects/modifyProspect');
+const getProspect = require('../routes/prospects/getProspect');
+const getAllProspect = require('../routes/prospects/getAllProspect');
 // const sendOTP = require('../routes/otp/sendOTP');
 // const verifyOTP = require('../routes/otp/verifyOTP');
 // const Cloudupld = require('../test');
@@ -259,6 +258,22 @@ app.post('/otp/sendOTP', (req, res) => {
 app.get('otp/verifyOTP', (req, res) => {
     verifyOTP(req, res);
 });
+
+
+
+app.post('/addProspect', (req, res) => {
+    addProspect(req, res);
+});
+app.put('/modifyProspect/:id', (req, res) => {
+    modifyProspect(req, res);
+});
+app.get('/getProspect/:id', (req, res) => {
+    getProspect(req, res);
+});
+app.get('/getAllProspect/:id', (req, res) => {
+    getAllProspect(req, res);
+});
+
 // app.post('/test', upload.single('file'), (req, res) => {
 //     let cld = new Cloudupld("szuxglwu", "dl3ncyhm7");
 //     console.log("welcome " + Object.keys(req.body));
